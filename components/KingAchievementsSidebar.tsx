@@ -1,48 +1,45 @@
-type KingAchievement = {
-  period: "고려" | "조선";
-  name: string;
-  reign: string;
-  achievements: string[];
-};
+import { kingAchievements } from "@/data/king-achievements";
 
-type KingAchievementsSidebarProps = {
-  data: KingAchievement[];
+type Props = {
   selectedPeriod: string;
 };
 
-export default function KingAchievementsSidebar({
-  data,
-  selectedPeriod,
-}: KingAchievementsSidebarProps) {
+export default function KingAchievementsSidebar({ selectedPeriod }: Props) {
   const filtered =
     selectedPeriod === "전체"
-      ? data
-      : data.filter((item) => item.period === selectedPeriod);
+      ? kingAchievements
+      : kingAchievements.filter((king) => king.period === selectedPeriod);
 
   return (
-    <aside className="rounded-3xl bg-white shadow-soft p-5 md:p-6 h-fit xl:sticky xl:top-6">
-      <h2 className="text-xl font-bold">왕별 업적 정리</h2>
-      <p className="mt-2 text-sm text-slate-600 leading-6">
-        교과서에서 비중 있게 다루는 왕과 통치 시기의 특징만 간단히 정리해보자.
+    <aside className="rounded-[24px] md:rounded-[28px] border border-[#e7dcc9] bg-[#fffdf9]/95 shadow-[0_10px_30px_rgba(95,61,38,0.07)] p-4 md:p-5 xl:sticky xl:top-6">
+      <h2 className="text-lg md:text-xl font-bold text-[#3f2c1f]">
+        왕별 업적 정리
+      </h2>
+      <p className="mt-2 text-sm leading-6 text-[#6a5d53]">
+        내신에서 자주 다뤄지는 왕을 중심으로 업적 흐름을 정리했어.
       </p>
 
-      <div className="mt-5 space-y-4 max-h-[70vh] overflow-auto pr-1">
+      <div className="mt-4 space-y-4 max-h-none xl:max-h-[80vh] xl:overflow-y-auto xl:pr-1">
         {filtered.map((king) => (
-          <div key={`${king.period}-${king.name}-${king.reign}`} className="rounded-2xl border border-slate-200 p-4">
+          <div
+            key={`${king.period}-${king.name}`}
+            className="rounded-2xl border border-[#eadfce] bg-[#faf6f0] p-4"
+          >
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-slate-900 px-3 py-1 text-xs text-white">
+              <span className="rounded-full bg-[#7b5538] px-3 py-1 text-xs text-white">
                 {king.period}
               </span>
-              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs text-slate-700">
-                {king.reign}
+              <span className="font-semibold text-[#3f2c1f]">{king.name}</span>
+              <span className="text-xs text-[#7b6e63]">
+                {king.startYear} ~ {king.endYear}
               </span>
             </div>
-            <h3 className="mt-3 text-lg font-bold">{king.name}</h3>
-            <ul className="mt-3 space-y-2 text-sm text-slate-700 leading-6">
-              {king.achievements.map((achievement) => (
-                <li key={achievement} className="flex gap-2">
-                  <span className="mt-[7px] h-1.5 w-1.5 rounded-full bg-slate-400 shrink-0" />
-                  <span>{achievement}</span>
+
+            <ul className="mt-3 space-y-2 text-sm leading-6 text-[#5a4f47]">
+              {king.achievements.map((item, idx) => (
+                <li key={idx} className="flex gap-2">
+                  <span className="mt-[8px] h-1.5 w-1.5 rounded-full bg-[#b1845e] shrink-0" />
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>

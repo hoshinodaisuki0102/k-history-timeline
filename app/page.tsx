@@ -6,7 +6,6 @@ import SidebarFilter from "@/components/SidebarFilter";
 import TimelineCard from "@/components/TimelineCard";
 import KingAchievementsSidebar from "@/components/KingAchievementsSidebar";
 import { timelineData } from "@/data/timeline";
-import { kingAchievements } from "@/data/king-achievements";
 import { getKingInfo, sortTimeline } from "@/lib/timeline-utils";
 
 export default function Page() {
@@ -31,7 +30,7 @@ export default function Page() {
         [
           event.title,
           event.summary,
-          event.detail,
+          event.detail ?? "",
           event.category,
           event.section,
           event.period,
@@ -48,38 +47,52 @@ export default function Page() {
   }, [search, selectedPeriod, importantOnly]);
 
   return (
-    <main className="min-h-screen bg-slate-50 p-4 md:p-8">
-      <div className="mx-auto max-w-[1600px] space-y-6">
-        <section className="rounded-[28px] bg-white shadow-soft p-6 md:p-8">
-          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-            고려~조선 말기 타임라인
-          </h1>
-          <p className="mt-3 text-slate-600 leading-7">
-            고려 건국부터 조선 말기까지의 핵심 사건을 연도순으로 보고,
-            왕대와 재위 연차, 왕별 주요 업적까지 함께 정리하는 암기 보조 사이트
-          </p>
+    <main className="min-h-screen px-3 py-4 sm:px-4 md:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1500px] space-y-4 md:space-y-6">
+        <section className="rounded-[24px] md:rounded-[32px] border border-[#e7dcc9] bg-[#fffdf9]/90 shadow-[0_12px_40px_rgba(95,61,38,0.08)] p-5 md:p-8 backdrop-blur-sm">
+          <div className="flex flex-col gap-3 md:gap-4">
+            <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#7a5a44]">
+              <span className="rounded-full bg-[#efe3d3] px-3 py-1">한국사 암기 보조</span>
+              <span className="rounded-full border border-[#e7dcc9] px-3 py-1">고려 ~ 조선 말기</span>
+              <span className="rounded-full border border-[#e7dcc9] px-3 py-1">왕대·사건 흐름 정리</span>
+            </div>
+
+            <div>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#3f2c1f]">
+                고려~조선 말기 역사 타임라인
+              </h1>
+              <p className="mt-3 text-sm sm:text-base leading-7 text-[#6f6257]">
+                사건을 연도순으로 정리하고, 각 사건이 어느 왕대에 해당하는지 함께 보면서
+                흐름을 빠르게 복습할 수 있도록 만든 사이트
+              </p>
+            </div>
+          </div>
         </section>
 
-        <div className="grid xl:grid-cols-[280px_minmax(0,1fr)_340px] gap-6">
-          <SidebarFilter
-            selectedPeriod={selectedPeriod}
-            setSelectedPeriod={setSelectedPeriod}
-            importantOnly={importantOnly}
-            setImportantOnly={setImportantOnly}
-          />
+        <div className="grid grid-cols-1 gap-4 xl:grid-cols-[260px_minmax(0,1fr)_320px] xl:gap-6">
+          <div className="order-2 xl:order-1">
+            <SidebarFilter
+              selectedPeriod={selectedPeriod}
+              setSelectedPeriod={setSelectedPeriod}
+              importantOnly={importantOnly}
+              setImportantOnly={setImportantOnly}
+            />
+          </div>
 
-          <section className="space-y-4 min-w-0">
+          <section className="order-1 xl:order-2 space-y-4">
             <SearchBar value={search} onChange={setSearch} />
 
-            <div className="rounded-3xl bg-white shadow-soft p-5 md:p-6">
-              <div className="flex items-center justify-between gap-4 flex-wrap">
-                <h2 className="text-2xl font-bold">연도순 타임라인</h2>
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700">
+            <div className="rounded-[24px] md:rounded-[32px] border border-[#e7dcc9] bg-[#fffdf9]/95 shadow-[0_12px_40px_rgba(95,61,38,0.08)] p-4 sm:p-5 md:p-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <h2 className="text-xl sm:text-2xl font-bold text-[#3f2c1f]">
+                  연도순 타임라인
+                </h2>
+                <span className="w-fit rounded-full bg-[#efe3d3] px-3 py-1 text-sm text-[#6b4d37]">
                   검색 결과 {filtered.length}개
                 </span>
               </div>
 
-              <div className="relative mt-6 space-y-4 before:absolute before:left-[5px] before:top-0 before:h-full before:w-px before:bg-slate-200">
+              <div className="relative mt-5 space-y-4 before:absolute before:left-[5px] before:top-0 before:h-full before:w-px before:bg-[#d8c2ab] sm:before:left-[7px]">
                 {filtered.map((event) => (
                   <TimelineCard
                     key={`${event.year}-${event.title}`}
@@ -90,10 +103,9 @@ export default function Page() {
             </div>
           </section>
 
-          <KingAchievementsSidebar
-            data={kingAchievements}
-            selectedPeriod={selectedPeriod}
-          />
+          <div className="order-3">
+            <KingAchievementsSidebar selectedPeriod={selectedPeriod} />
+          </div>
         </div>
       </div>
     </main>
