@@ -23,7 +23,7 @@ export default function KingAchievementsSidebar({
     <aside className="rounded-3xl bg-white shadow-soft p-5 md:p-6 h-fit xl:sticky xl:top-6">
       <h2 className="text-xl font-bold">왕별 업적 정리</h2>
       <p className="mt-2 text-sm text-slate-600 leading-6">
-        교과서에서 비중 있게 다루는 왕과 통치 시기의 특징만 간단히 모아 정리했어.
+        교과서에서 비중 있게 다루는 왕과 통치 시기의 특징만 간단히 정리해보자.
       </p>
 
       <div className="mt-5 space-y-4 max-h-[70vh] overflow-auto pr-1">
