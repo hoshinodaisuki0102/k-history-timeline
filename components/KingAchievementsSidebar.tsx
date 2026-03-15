@@ -16,7 +16,7 @@ export default function KingAchievementsSidebar({ selectedPeriod }: Props) {
         왕별 업적 정리
       </h2>
       <p className="mt-2 text-sm leading-6 text-[#6a5d53]">
-        내신에서 자주 다뤄지는 왕을 중심으로 업적 흐름을 정리했어.
+        내신에서 자주 다뤄지는 왕을 중심으로 업적 흐름을 정리해보자.
       </p>
 
       <div className="mt-4 space-y-4 max-h-none xl:max-h-[80vh] xl:overflow-y-auto xl:pr-1">
